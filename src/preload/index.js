@@ -273,22 +273,6 @@ if (process.contextIsolated) {
         refresh: (provider) => ipcRenderer.invoke("provider:refresh", { provider }),
       },
 
-      update: {
-        checkForUpdates: () => ipcRenderer.invoke("autoUpdater:check"),
-        downloadUpdate: () => ipcRenderer.invoke("autoUpdater:download"),
-        installUpdate: () => ipcRenderer.invoke("autoUpdater:install"),
-        onUpdate: (callback) => {
-          const handler = (event, update) => callback(update);
-          ipcRenderer.on("autoUpdater:status", handler);
-          return () => ipcRenderer.removeListener("autoUpdater:status", handler);
-        },
-        onDismiss: (callback) => {
-          const handler = () => callback();
-          ipcRenderer.on("autoUpdater:dismiss", handler);
-          return () => ipcRenderer.removeListener("autoUpdater:dismiss", handler);
-        },
-      },
-
       logs: {
         get: (data) => ipcRenderer.invoke("chatLogs:get", { data }),
         add: (data) => ipcRenderer.invoke("chatLogs:add", { data }),
