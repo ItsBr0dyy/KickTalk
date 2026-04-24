@@ -1,7 +1,6 @@
 const { app, shell, BrowserWindow, ipcMain, screen, session, Tray, dialog } = require("electron");
 import { join, basename } from "path";
 import { electronApp, optimizer } from "@electron-toolkit/utils";
-import { update } from "./utils/update";
 import Store from "electron-store";
 import store from "../../utils/config";
 import fs from "fs";
@@ -221,12 +220,6 @@ ipcMain.handle("store:set", (e, { key, value }) => {
     } else if (process.platform === "linux") {
       mainWindow.setAlwaysOnTop(value.alwaysOnTop, "screen-saver", 1);
     }
-
-    // Handle auto-update setting changes
-    if (value.hasOwnProperty('autoUpdate') && value.autoUpdate === false) {
-      // Dismiss any active update notifications when auto-update is disabled
-      mainWindow.webContents.send("autoUpdater:dismiss");
-    }
   }
 
   return result;
@@ -442,9 +435,9 @@ const createWindow = () => {
     minWidth: 335,
     minHeight: 250,
     show: false,
+    frame: true,
     backgroundColor: "#06190e",
     autoHideMenuBar: true,
-    titleBarStyle: "hidden",
     roundedCorners: true,
     icon: iconPath,
     webPreferences: {
@@ -684,9 +677,6 @@ app.whenReady().then(() => {
 
   createWindow();
 
-  // Initialize auto-updater
-  update(mainWindow);
-
   app.on("activate", function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
@@ -881,28 +871,28 @@ ipcMain.handle("alwaysOnTop", () => {
   }
 });
 
-// Window Controls
-ipcMain.on("minimize", () => {
-  if (mainWindow) {
-    mainWindow.minimize();
-  }
-});
+// // Window Controls
+// ipcMain.on("minimize", () => {
+//   if (mainWindow) {
+//     mainWindow.minimize();
+//   }
+// });
 
-ipcMain.on("maximize", () => {
-  if (mainWindow) {
-    if (mainWindow.isMaximized()) {
-      mainWindow.unmaximize();
-    } else {
-      mainWindow.maximize();
-    }
-  }
-});
+// ipcMain.on("maximize", () => {
+//   if (mainWindow) {
+//     if (mainWindow.isMaximized()) {
+//       mainWindow.unmaximize();
+//     } else {
+//       mainWindow.maximize();
+//     }
+//   }
+// });
 
-ipcMain.on("close", () => {
-  if (mainWindow) {
-    mainWindow.close();
-  }
-});
+// ipcMain.on("close", () => {
+//   if (mainWindow) {
+//     mainWindow.close();
+//   }
+// });
 
 // Get App Info
 ipcMain.handle("get-app-info", () => {
@@ -1014,7 +1004,7 @@ ipcMain.handle("searchDialog:open", (e, { data }) => {
     y: newY,
     show: false,
     resizable: true,
-    frame: false,
+    frame: true,
     transparent: true,
     roundedCorners: true,
     parent: mainWindow,
@@ -1218,3 +1208,4 @@ ipcMain.handle("replyThreadDialog:close", () => {
     replyThreadDialog = null;
   }
 });
+
