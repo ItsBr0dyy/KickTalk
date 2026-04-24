@@ -39,6 +39,10 @@
     "target": {
       "target": "nsis"
     },
+  "linux": {
+    "target": ["AppImage", "deb", "flatpak"],
+    "icon": "../resources/icons/KickTalk_v1.png"
+  },
     "directories": {
       "output": "dist"
     },
@@ -48,8 +52,14 @@
     "@electron-toolkit/preload": "^3.0.1",
     "@electron-toolkit/utils": "^4.0.0",
     "@hello-pangea/dnd": "^18.0.1",
+    "@lexical/history": "^0.30.0",
+    "@lexical/link": "^0.30.0",
+    "@lexical/list": "^0.30.0",
+    "@lexical/markdown": "^0.30.0",
     "@lexical/react": "^0.30.0",
-    "@lexical/text": "^0.33.1",
+    "@lexical/rich-text": "^0.30.0",
+    "@lexical/text": "^0.30.0",
+    "@lexical/utils": "^0.30.0",
     "@radix-ui/react-context-menu": "^2.2.15",
     "@radix-ui/react-dropdown-menu": "^2.1.15",
     "@radix-ui/react-slider": "^1.3.5",
@@ -61,7 +71,6 @@
     "dotenv": "^16.4.7",
     "electron-log": "^5.4.0",
     "electron-store": "^10.0.1",
-    "electron-updater": "^6.6.2",
     "electron-util": "^0.18.1",
     "emoji-picker-react": "^4.12.2",
     "i": "^0.3.7",
