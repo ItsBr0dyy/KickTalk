@@ -7,7 +7,6 @@ import GearIcon from "../assets/icons/gear-fill.svg?asset";
 
 import "../assets/styles/components/TitleBar.scss";
 import clsx from "clsx";
-import Updater from "./Updater";
 
 const TitleBar = () => {
   const [userData, setUserData] = useState(null);
@@ -86,8 +85,6 @@ const TitleBar = () => {
           <Settings settingsModalOpen={settingsModalOpen} setSettingsModalOpen={setSettingsModalOpen} appInfo={appInfo} />
         )}
       </div>
-
-      <Updater />
 
       <div className="titleBarRight">
         <div className="titleBarControls">
