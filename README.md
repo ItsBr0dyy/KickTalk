@@ -1,6 +1,8 @@
-# Kick Talk
+# Kick Talk (Debian)
 
 An Application for Kick to enhance your experience as a chatter.
+
+Fork to create Debian/AppImage/Snap applications for KickTalk.
 
 Designed & Developed by Dark
 Developed by ftk789
